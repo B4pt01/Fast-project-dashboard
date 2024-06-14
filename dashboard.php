@@ -2,8 +2,8 @@
 include 'db.php';
 session_start();
 
-if (!isset($_SESSION['userid'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['userid']) || !$_SESSION['is_admin']) {
+    header("Location: account.php");
     exit();
 }
 
@@ -32,6 +32,7 @@ $result = $conn->query($sql);
             <th>ID</th>
             <th>Nom d'utilisateur</th>
             <th>Email</th>
+            <th>Admin</th>
             <th>Action</th>
         </tr>
         <?php while ($row = $result->fetch_assoc()) : ?>
@@ -39,6 +40,7 @@ $result = $conn->query($sql);
                 <td><?php echo $row['id']; ?></td>
                 <td><?php echo $row['username']; ?></td>
                 <td><?php echo $row['email']; ?></td>
+                <td><?php echo $row['is_admin'] ? 'Oui' : 'Non'; ?></td>
                 <td>
                     <a href="edit_user.php?id=<?php echo $row['id']; ?>">Modifier</a>
                 </td>

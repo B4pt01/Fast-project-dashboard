@@ -13,7 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user = $result->fetch_assoc();
         if (password_verify($password, $user['password'])) {
             $_SESSION['userid'] = $user['id'];
-            header("Location: dashboard.php");
+            $_SESSION['is_admin'] = $user['is_admin']; // Ajouter le statut admin à la session
+            header("Location: " . ($user['is_admin'] ? "dashboard.php" : "account.php"));
         } else {
             echo "<div class='message'>Mot de passe incorrect.</div>";
         }

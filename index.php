@@ -18,9 +18,9 @@ session_start();
         <a href="register.php">Inscription</a>
         <?php if (!isset($_SESSION['userid'])) : ?>
             <a href="login.php">Connexion</a>
-        <?php endif; ?>
-        <?php if (isset($_SESSION['userid'])) : ?>
-            <a href="dashboard.php">Mon compte</a>
+        <?php else : ?>
+            <a href="<?php echo $_SESSION['is_admin'] ? 'dashboard.php' : 'account.php'; ?>">Mon compte</a>
+            <a href="logout.php">Déconnexion</a>
         <?php endif; ?>
     </nav>
     <main>

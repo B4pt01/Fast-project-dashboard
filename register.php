@@ -4,8 +4,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $email = $_POST['email'];
+    $is_admin = 0; // Tous les utilisateurs enregistrés par défaut ne sont pas admin
 
-    $sql = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
+    $sql = "INSERT INTO users (username, password, email, is_admin) VALUES ('$username', '$password', '$email', $is_admin)";
 
     if ($conn->query($sql) === TRUE) {
         echo "<div class='message'>Inscription réussie. <a href='login.php'>Connectez-vous</a></div>";
